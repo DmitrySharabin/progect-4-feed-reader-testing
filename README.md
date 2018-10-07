@@ -10,7 +10,7 @@ The goal of the project is to complete the test suite.
 
 ## Application Launch
 To start the application and see how it passes the tests open file `index.html` in a browser or just follow
-[this](https://dmitrysharabin.github.io/) link.
+[this](https://dmitrysharabin.github.io/progect-4-feed-reader-testing/) link.
 
 ## Test Suite Exploration
 To gain an understanding of how the test suite itself works explore the Jasmine spec file `jasmine/spec/feedreader.js`.

@@ -116,11 +116,18 @@ $(function() {
             loadFeed(1, () => {
               // Save the first feed title
               this.firstTitle = $('.header-title').text();
+              // Save feeds texts into array
+              this.firstFeeds = [];
+              $('article.entry h2').each((index, feed) => {
+                this.firstFeeds.push(feed.textContent);
+              });
               // Load another feed
               try {
                 loadFeed(0, () => {
-                  // and save its title
+                  // save its title
                   this.secondTitle = $('.header-title').text();
+                  // and the first feed
+                  this.oneFeedFromOtherFeeds = $('article.entry h2').first().text();
                   done();
                 });
               } catch(e) {
@@ -136,8 +143,14 @@ $(function() {
           // Check whether expected variables are defined
           expect(this.firstTitle).toBeDefined();
           expect(this.secondTitle).toBeDefined();
+          expect(this.firstFeeds).toBeDefined();
+          expect(this.oneFeedFromOtherFeeds).toBeDefined();
+
           // Check whether titles of different feeds are different
           expect(this.firstTitle).not.toBe(this.secondTitle);
+
+          // Check whether this.oneFeedFromOtherFeeds is not in this.firstFeeds
+          expect(this.firstFeeds).not.toContain(this.oneFeedFromOtherFeeds);
         });
     });
 }());

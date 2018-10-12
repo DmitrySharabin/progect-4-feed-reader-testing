@@ -111,46 +111,26 @@ $(function() {
         /* This test ensures that when a new feed is loaded
          * by the loadFeed function, the content actually changes.
          */
-        beforeEach((done) => {
-          try {
+        beforeEach(done => {
+          loadFeed(0, () => {
+            // After load is done, save the first feed's html-code
+            this.firstFeedSelection = $('.feed').html();
+            // Load another feed
             loadFeed(1, () => {
-              // Save the first feed title
-              this.firstTitle = $('.header-title').text();
-              // Save feeds texts into array
-              this.firstFeeds = [];
-              $('article.entry h2').each((index, feed) => {
-                this.firstFeeds.push(feed.textContent);
-              });
-              // Load another feed
-              try {
-                loadFeed(0, () => {
-                  // save its title
-                  this.secondTitle = $('.header-title').text();
-                  // and the first feed
-                  this.oneFeedFromOtherFeeds = $('article.entry h2').first().text();
-                  done();
-                });
-              } catch(e) {
-                done.fail(e);
-              }
+              // After the feed is loaded, save its html-code
+              this.secondFeedSelection = $('.feed').html();
+              done();
             });
-          } catch(e) {
-            done.fail(e);
-          }
+          });
         });
 
         it('when a new feed is loaded by the loadFeed function, the content actually changes', () => {
           // Check whether expected variables are defined
-          expect(this.firstTitle).toBeDefined();
-          expect(this.secondTitle).toBeDefined();
-          expect(this.firstFeeds).toBeDefined();
-          expect(this.oneFeedFromOtherFeeds).toBeDefined();
+          expect(this.firstFeedSelection).toBeDefined();
+          expect(this.secondFeedSelection).toBeDefined();
 
-          // Check whether titles of different feeds are different
-          expect(this.firstTitle).not.toBe(this.secondTitle);
-
-          // Check whether this.oneFeedFromOtherFeeds is not in this.firstFeeds
-          expect(this.firstFeeds).not.toContain(this.oneFeedFromOtherFeeds);
+          // Check whether saved feeds' html-codes are different
+          expect(this.firstFeedSelection).not.toBe(this.secondFeedSelection);
         });
     });
 }());

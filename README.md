@@ -11,6 +11,10 @@ The goal of the project is to complete the test suite.
 ## Application Launch
 To start the application and see how it passes the tests open file `index.html` in a browser.
 
+In order to open the `index.html` file you have two methods to copy it locally:
+- either download the zip file
+- or clone the repository.
+
 ## Test Suite Exploration
 To gain an understanding of how the test suite itself works explore the Jasmine spec file `jasmine/spec/feedreader.js`.
 
